@@ -6,16 +6,24 @@ import SongCard from './SongCard';
 const Body = ({ songs, setCurrentSong }) => {
     const [activeSection, setActiveSection] = useState('For You');
     const [displayedSongs, setDisplayedSongs] = useState(songs);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        if (activeSection === 'For You') {
-            setDisplayedSongs(songs);
-        } else if (activeSection === 'Top Tracks') {
-            const shuffledSongs = [...songs].sort(() => Math.random() - 0.5);
-            setDisplayedSongs(shuffledSongs);
-        }
-    }, [activeSection, songs]);
+        let filteredSongs = songs;
 
+        if (activeSection === 'Top Tracks') {
+            filteredSongs = [...songs].sort(() => Math.random() - 0.5);
+        }
+
+        if (searchQuery) {
+            filteredSongs = filteredSongs.filter(song =>
+                song.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        setDisplayedSongs(filteredSongs);
+    }, [activeSection, songs, searchQuery]);
 
     return (
         <div className="body_container">
@@ -33,7 +41,7 @@ const Body = ({ songs, setCurrentSong }) => {
                     Top Tracks
                 </h2>
             </div>
-            <Navbar />
+            <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
             {displayedSongs.map((song) => (
                 <SongCard

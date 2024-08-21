@@ -9,7 +9,8 @@ import axios from 'axios';
 const Spotify = () => {
     const [songs, setSongs] = useState([]);
     const [currentSong, setCurrentSong] = useState(null);
-    const [currentSongIndex, setCurrentSongIndex] = useState(0); // Track the current song index
+    const [currentSongIndex, setCurrentSongIndex] = useState(0);
+    const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
         const fetchSongs = async () => {
@@ -35,6 +36,7 @@ const Spotify = () => {
                 if (songsWithDuration.length > 0) {
                     setCurrentSong(songsWithDuration[0]);
                 }
+                setLoading(false); // Set loading to false after fetching
             } catch (err) {
                 console.error('Error fetching the songs:', err);
             }
@@ -51,18 +53,24 @@ const Spotify = () => {
 
     return (
         <div className="spotify_body">
-            <Sidebar />
-            <div className="body_contents">
-                <Body songs={songs} setCurrentSong={handleSetCurrentSong} />
-            </div>
-            {currentSong && (
-                <Player
-                    currentSong={currentSong}
-                    playlist={songs}
-                    currentSongIndex={currentSongIndex}
-                    setCurrentSongIndex={setCurrentSongIndex}
-                    setCurrentSong={setCurrentSong}
-                />
+            {loading ? (
+                <div className="loading_spinner"></div>
+            ) : (
+                <>
+                    <Sidebar />
+                    <div className="body_contents">
+                        <Body songs={songs} setCurrentSong={handleSetCurrentSong} />
+                    </div>
+                    {currentSong && (
+                        <Player
+                            currentSong={currentSong}
+                            playlist={songs}
+                            currentSongIndex={currentSongIndex}
+                            setCurrentSongIndex={setCurrentSongIndex}
+                            setCurrentSong={setCurrentSong}
+                        />
+                    )}
+                </>
             )}
         </div>
     );

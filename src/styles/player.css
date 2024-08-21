@@ -11,6 +11,7 @@
   text-align: left;
   width: 100%;
   margin-bottom: 1rem;
+  animation: fadeIn 0.3s forwards; /* Smooth fade-in effect */
 }
 
 .song_Name {
@@ -32,6 +33,7 @@
   height: 403px;
   border-radius: 10px;
   margin-bottom: 1rem;
+  transition: opacity 0.3s ease-in-out; /* Smooth fade-out/fade-in */
 }
 
 .music_bar {
@@ -41,6 +43,7 @@
   border-radius: 2px;
   margin-bottom: 1rem;
   position: relative;
+  overflow: hidden; /* Ensure the filled bar doesn't overflow */
 }
 
 .progress_bar {
@@ -68,7 +71,7 @@
   justify-content: center;
   align-items: center;
   color: white;
-  margin-left: 150px;
+  margin-left: 170px;
   position: fixed;
 }
 
@@ -94,16 +97,22 @@
   align-items: center;
   justify-content: space-between; /* Space between mute and volume-up icons */
   width: 150px; /* Adjust width as needed */
+  animation: fadeIn 0.3s ease-in-out; /* Fade-in animation */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition */
 }
 
 .volume_slider {
   width: 50px; /* Adjust width of the slider */
   margin: 0 10px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Smooth transition */
 }
 
 .progress_filled {
   height: 100%;
+  background-color: #fff; /* White color to contrast with the background */
+  transition: width 0.3s ease; /* Smooth transition when progress updates */
+
   background-color: #fff;
   position: absolute;
   top: 0;
@@ -118,4 +127,30 @@
   justify-content: center;
   border-radius: 50%;
   background-color: rgb(255, 255, 255, 0.1);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.player_controls svg {
+  transition: transform 0.3s ease-in-out;
+}
+
+.player_controls svg:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

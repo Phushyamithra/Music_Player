@@ -13,6 +13,8 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
     const [showVolumeBar, setShowVolumeBar] = useState(false); // Toggle volume bar visibility
     const [isPlaying, setIsPlaying] = useState(false); // Track playback state
     const audioRef = useRef(null); // Reference to the audio element
+    const progressRef = useRef(null); // Reference to the progress bar element
+    const progressBarRef = useRef(null); // Reference to the entire progress bar
 
     useEffect(() => {
         if (currentSong) {
@@ -43,30 +45,19 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
         }
     }, [currentSong, isPlaying]);
 
+    useEffect(() => {
+        const updateProgress = () => {
+            if (audioRef.current && progressRef.current) {
+                const currentTime = audioRef.current.currentTime;
+                const duration = audioRef.current.duration;
+                const progressPercent = (currentTime / duration) * 100;
+                progressRef.current.style.width = `${progressPercent}%`;
+            }
+        };
 
-
-    // Update the progress bar as the song plays
-    // useEffect(() => {
-    //     const updateProgress = () => {
-    //         if (audioRef.current) {
-    //             setCurrentTime(audioRef.current.currentTime);
-    //             setProgress((audioRef.current.currentTime / duration) * 100);
-    //         }
-    //     };
-
-    //     const interval = setInterval(updateProgress, 1000); // Update progress every second
-    //     return () => clearInterval(interval); // Clean up interval on component unmount
-    // }, [duration, isPlaying]);
-
-    // const handleProgressClick = (event) => {
-    //     if (audioRef.current && progressBarRef.current) {
-    //         const rect = progressBarRef.current.getBoundingClientRect();
-    //         const offsetX = event.clientX - rect.left;
-    //         const newProgress = (offsetX / rect.width) * 100;
-    //         setProgress(newProgress);
-    //         audioRef.current.currentTime = (newProgress / 100) * duration;
-    //     }
-    // };
+        const interval = setInterval(updateProgress, 1000); // Update progress every second
+        return () => clearInterval(interval); // Clean up interval on component unmount
+    }, [isPlaying]);
 
     const handleVolumeChange = (event) => {
         setVolume(event.target.value);
@@ -101,28 +92,49 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
     };
 
     const playNextSong = () => {
-        const nextIndex = (currentSongIndex + 1) % playlist.length;
-        setCurrentSongIndex(nextIndex);
-        setCurrentSong(playlist[nextIndex]);
+        setIsPlaying(false);
+        setTimeout(() => {
+            const nextIndex = (currentSongIndex + 1) % playlist.length;
+            setCurrentSongIndex(nextIndex);
+            setCurrentSong(playlist[nextIndex]);
+            setIsPlaying(true);
+        }, 300); // 300ms delay to allow fade-out
     };
 
     const playPreviousSong = () => {
-        const prevIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-        setCurrentSongIndex(prevIndex);
-        setCurrentSong(playlist[prevIndex]);
+        setIsPlaying(false);
+        setTimeout(() => {
+            const prevIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            setCurrentSongIndex(prevIndex);
+            setCurrentSong(playlist[prevIndex]);
+            setIsPlaying(true);
+        }, 300); // 300ms delay to allow fade-out
+    };
+
+    const handleProgressClick = (e) => {
+        if (audioRef.current && progressBarRef.current) {
+            const rect = progressBarRef.current.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const clickRatio = clickX / width;
+            const newTime = clickRatio * audioRef.current.duration;
+            audioRef.current.currentTime = newTime;
+        }
     };
 
     if (!currentSong) return null;
 
     return (
-        <div className='player_container' >
+        <div className='player_container'>
             <div className="song_info">
                 <h2 className='song_Name'>{currentSong.name}</h2>
                 <h4 className='artistName'>{currentSong.artist}</h4>
             </div>
             <img className='cover_Image' src={`https://cms.samespace.com/assets/${currentSong.cover}`} alt="cover" />
-            <div className="music_bar">
-                <div className="progress_bar"></div>
+            <div className="music_bar" ref={progressBarRef} onClick={handleProgressClick}>
+                <div className="progress_bar">
+                    <div className="progress_filled" ref={progressRef}></div>
+                </div>
             </div>
             <div className="music_control">
                 <div className="dots_bg">
@@ -138,9 +150,11 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
                     <IoPlayForward onClick={playNextSong} />
                 </div>
                 <div className="volume_control">
-                    {!showVolumeBar && (<div className="dots_bg" onClick={toggleVolumeBar}>
-                        <FaVolumeUp size={18} />
-                    </div>)}
+                    {!showVolumeBar && (
+                        <div className="dots_bg" onClick={toggleVolumeBar}>
+                            <FaVolumeUp size={18} />
+                        </div>
+                    )}
 
                     {showVolumeBar && (
                         <div className="volume_bar">
