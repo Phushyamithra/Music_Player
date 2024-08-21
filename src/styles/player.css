@@ -1,0 +1,121 @@
+.player_container {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  width: 480px;
+  height: 600px;
+  margin: 3% 6% 0% 0%;
+}
+
+.song_info {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.song_Name {
+  color: white;
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0;
+}
+
+.artistName {
+  color: #b3b3b3;
+  font-weight: 400;
+  font-size: 14px;
+  margin: 10px 0 0 0;
+}
+
+.cover_Image {
+  width: 480px;
+  height: 403px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.music_bar {
+  width: 480px;
+  height: 4px;
+  background-color: #404040;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.progress_bar {
+  width: 480px;
+  height: 100%;
+  /* background-color: white; */
+  border-radius: 2px;
+  background-color: #404040;
+  cursor: pointer;
+  position: relative;
+}
+
+.music_control {
+  width: 480px;
+  display: flex; /* Change to flex to align items horizontally */
+  justify-content: space-between; /* Space between items */
+  align-items: center; /* Center items vertically */
+  padding: 10px 0; /* Optional: Add padding for spacing */
+  /* gap: 12%; */
+}
+
+.player_controls {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-left: 150px;
+  position: fixed;
+}
+
+.music_control svg {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dots_bg {
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255, 0.1);
+}
+
+.volume_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between mute and volume-up icons */
+  width: 150px; /* Adjust width as needed */
+}
+
+.volume_slider {
+  width: 50px; /* Adjust width of the slider */
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.progress_filled {
+  height: 100%;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.play_pause_bg {
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255, 0.1);
+}

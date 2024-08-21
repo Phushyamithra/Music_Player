@@ -1,0 +1,36 @@
+.song_container {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  margin: 0rem 0rem 1.3rem 0rem;
+  .song_details {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.time {
+  line-height: 24px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6); /* Slightly lighter version of white */
+  margin-top: 0.5rem;
+}
+
+.coverImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 2rem;
+}
+
+.songName {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 24px;
+}
+.artist {
+  margin: 0;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(255, 255, 255, 0.6); /* Slightly lighter version of white */
+}

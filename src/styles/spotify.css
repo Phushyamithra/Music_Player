@@ -1,0 +1,43 @@
+.spotify_body {
+  display: grid;
+  grid-template-columns: 17% auto 58%;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+.body_contents {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.body {
+  flex-grow: 1; /* Body takes the remaining space */
+  overflow: auto;
+}
+
+.sidebar_container {
+  grid-column: 1 / 2; /* Fixed column for Sidebar */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 17%; /* Ensure it aligns with the grid-template-columns */
+}
+
+.body_contents {
+  grid-column: 2 / 3; /* Body in the middle */
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: 100vh; /* Ensure it takes full viewport height */
+  padding: 0 20px; /* Optional: Padding for content spacing */
+}
+
+.player_container {
+  grid-column: 3 / 4; /* Fixed column for Player */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 58%; /* Ensure it aligns with the grid-template-columns */
+}

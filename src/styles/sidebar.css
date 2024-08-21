@@ -1,0 +1,31 @@
+.sidebar_container {
+  /* background-color: black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .logo {
+    text-align: start;
+    margin: 1rem 0 0 1rem;
+
+    img {
+      /* max-inline-size: 80%; */
+      width: 130px;
+      height: 40px;
+      block-size: auto;
+    }
+
+    img:hover {
+      cursor: pointer;
+    }
+  }
+  .profile_icon {
+    /* max-inline-size: 5%; */
+    width: 48px;
+    height: 48px;
+    block-size: auto;
+    margin: 1rem 1rem 1rem 1rem;
+    justify-content: start;
+    /* position: absolute; */
+  }
+}
