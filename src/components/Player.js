@@ -136,9 +136,12 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
                     <div className="progress_filled" ref={progressRef}></div>
                 </div>
             </div>
-            <div className="music_control">
-                <div className="dots_bg">
-                    <BsThreeDots size={18} />
+            <div className="controls_container">
+                <div className="dots_container">
+
+                    <div className="dots_bg">
+                        <BsThreeDots />
+                    </div>
                 </div>
                 <div className="player_controls">
                     <IoPlayBack onClick={playPreviousSong} />
@@ -149,17 +152,18 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
                     )}
                     <IoPlayForward onClick={playNextSong} />
                 </div>
+
+
                 <div className="volume_control">
                     {!showVolumeBar && (
                         <div className="dots_bg" onClick={toggleVolumeBar}>
-                            <FaVolumeUp size={18} />
+                            <FaVolumeUp />
                         </div>
                     )}
-
                     {showVolumeBar && (
                         <div className="volume_bar">
                             <div className="dots_bg">
-                                <IoIosVolumeMute size={18} />
+                                <IoIosVolumeMute />
                             </div>
                             <input
                                 type="range"
@@ -170,15 +174,16 @@ const Player = ({ currentSong, playlist, currentSongIndex, setCurrentSongIndex, 
                                 className="volume_slider"
                             />
                             <div className="dots_bg">
-                                <FaVolumeUp size={18} />
+                                <FaVolumeUp />
                             </div>
                         </div>
                     )}
                 </div>
-                {/* Audio Element */}
-                <audio ref={audioRef} />
             </div>
-        </div>
+
+            <audio ref={audioRef} />
+        </div >
+
     );
 };
 

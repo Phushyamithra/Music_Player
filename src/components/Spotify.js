@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
-import Navbar from './Navbar';
 import Body from './Body';
 import Player from './Player';
 import '../styles/spotify.css';
@@ -58,9 +57,9 @@ const Spotify = () => {
             ) : (
                 <>
                     <Sidebar />
-                    <div className="body_contents">
+                    {/* <div className="body_contents">
                         <Body songs={songs} setCurrentSong={handleSetCurrentSong} />
-                    </div>
+                    </div> */}
                     {currentSong && (
                         <Player
                             currentSong={currentSong}
