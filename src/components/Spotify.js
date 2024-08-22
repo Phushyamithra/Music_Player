@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 import Body from './Body';
 import Player from './Player';
 import '../styles/spotify.css';
@@ -10,6 +11,7 @@ const Spotify = () => {
     const [currentSong, setCurrentSong] = useState(null);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const [loading, setLoading] = useState(true); // Loading state
+    const [showBody, setShowBody] = useState(window.innerWidth >= 400);
 
     useEffect(() => {
         const fetchSongs = async () => {
@@ -50,6 +52,20 @@ const Spotify = () => {
         setCurrentSongIndex(index);
     };
 
+    useEffect(() => {
+        const handleResize = () => {
+            setShowBody(window.innerWidth >= 500);
+        };
+
+        // Add event listener
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup on component unmount
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <div className="spotify_body">
             {loading ? (
@@ -57,9 +73,11 @@ const Spotify = () => {
             ) : (
                 <>
                     <Sidebar />
-                    {/* <div className="body_contents">
-                        <Body songs={songs} setCurrentSong={handleSetCurrentSong} />
-                    </div> */}
+                    {showBody && (
+                        <div className="body_contents">
+                            <Body songs={songs} setCurrentSong={handleSetCurrentSong} />
+                        </div>
+                    )}
                     {currentSong && (
                         <Player
                             currentSong={currentSong}

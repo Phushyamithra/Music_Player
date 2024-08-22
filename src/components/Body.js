@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import '../styles/body.css';
 import SongCard from './SongCard';
 
-const Body = ({ songs, setCurrentSong }) => {
+const Body = ({ songs = [], setCurrentSong }) => {
     const [activeSection, setActiveSection] = useState('For You');
     const [displayedSongs, setDisplayedSongs] = useState(songs);
     const [searchQuery, setSearchQuery] = useState('');
